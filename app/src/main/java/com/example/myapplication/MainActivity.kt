@@ -30,14 +30,22 @@ class MainActivity : AppCompatActivity() {
         var text =findViewById<TextView>(R.id.greet)
         var names=findViewById<Button>(R.id.names)
         names.setOnClickListener({
-            startActivity(Intent(MainActivity@this,Recyclerview::class.java))
+            startActivity(Intent(this,Recyclerview::class.java))
         })
         var s=""
         lateinit var name:String
         val bmi=findViewById<Button>(R.id.bmi)
         bmi.setOnClickListener({
-            startActivity(Intent(this@MainActivity,BMI::class.java))
+            startActivity(Intent(this,BMI::class.java))
         })
+
+
+        var coroutine=findViewById<Button>(R.id.coroutine)
+        coroutine.setOnClickListener(
+            {
+                startActivity(Intent(this,CoroutineDemo::class.java))
+            }
+        )
 
         lateinit var viewmodel:ViewModelDemo
 
