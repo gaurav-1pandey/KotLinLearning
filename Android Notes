@@ -1,0 +1,315 @@
+Page 1 
+Finding view by id
+Val/var name = findviewbyid<viewtype>(R.id.viewID)
+Set on click listner on buttons
+Var buton=findviewbyid<Button>(R.id.button1)
+buton.setOnClickListener({/*we have to write the onclick logic here*/})
+
+Using the EditText/entry
+>>getting colour from id and setting it to text view using ContextCompat
+text.setTextColor(ContextCompat.getColor(this,R.color.red))
+>> getting the text form entry
+var s=””
+s=textviewname.text.toString()
+>> setting the text
+Textviewname.text=”gaurav”
+>> clearing the text
+Textviewname.text.clear()
+
+Starting a new activity
+
+>>To start a new activity we have to use an object called Intent, and  this object can be stored in a variable of can be directlu passed into startActivity() function to start new activity.
+
+startActivity(Intent(this/this@currentActivvityName, newactivityname::class.java)
+
+>> by storing it into a variable we can pass  extra data to the next activity as shown below
+
+var intt=Intent(this , newactivityname::class.java)
+intt.putExtra(“the reference of the passed value”,the_passed_value)
+startActicity(intt)  //passing the intent into this function
+
+>> to fetch the passed input on the new activity we write
+
+var st=intent.getStringExtra(“name_of_the_data”)  //here intent is the value of the Activity not the passed variable name
+
+Making a objects visible and invisible
+>> we have to import the following things
+
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
+>>  to set the visibility we write
+viewname.visibility=VISIBLE/INVISIBLE
+Difference between Interface and Abstract Class
+Kotlin interfaces are similar to abstract classes. However, interfaces cannot store state whereas abstract classes can. Meaning, interface may have property but it needs to be abstract or has to provide accessor implementations. Whereas, it's not mandatory for property of an abstract class to be abstract.
+the choice between using an abstract class or an interface in Kotlin depends on your design requirements. If you need to provide some common implementation along with abstract methods, you might use an abstract class. If you want to define a contract without any implementation details, interfaces are more appropriate, especially when you need to support multiple inheritance of behavior.
+
+Creating Log and reading them
+
+>> this function is called when a activity returns from paused to resume state 
+override fun onResume() {
+    super.onResume()
+    Log.i("mytag","MainActivity: on resume")
+}
+
+
+>> when an activity is killed then after restart this function is called
+override fun onRestart() {
+    super.onRestart()
+    Log.i("mytag","MainActivity: on restart")
+
+}
+
+
+>> this function is called on starting of the activity at very first time
+override fun onStart() {
+    super.onStart()
+    Log.i("mytag","MainActivity: on start")
+}
+
+>> this is called when an activity is stopped for certain time
+override fun onStop() {
+    super.onStop()
+    Log.i("mytag","MainActivity: on stop")
+}
+
+>> this function is called when an activity is killed
+override fun onDestroy() {
+    super.onDestroy()
+    Log.i("mytag","MainActivity: on destroy")
+}
+
+
+ 
+
+
+The logs printed by the avobe functions
+To view thw logs we have to write the tag where “mytag” is written in the avobe picture after opening thee logcat
+ 
+
+
+
+
+The basics of Activity Lifecycle
+
+We use lateinit in kotlin when we donot want to initialize a variable instantly it will not give error in thee code
+lateinit var name:String
+Using SharedPreferences to store small amount of data
+
+Creating shared preference with NAME and MODE(MODE_PRIVATE means this is accessible to current application only) 
+var sp=getSharedPreferences("mysp", MODE_PRIVATE)
+
+Now we create a Editor to edit the sp(shared preferences)
+var editor=sp.edit()
+
+We can add values like this 
+editor.apply({
+    putString("name","Gaurav")
+    putInt("age",21)
+    commit() //commit is very important
+})
+
+And also like this
+editor.putString("class","AIML")
+editor.apply()  // apply is very important
+editor.commit() //commit is very important
+
+Using in current activity
+entry1.setText(sp.getString("name","noname"))
+entry2.setText(sp.getInt("age",0).toString()+sp.getString("class","noclass"))
+
+Creating instance of Sharedpreferences in new Activity is similar as creating a new one
+val sp = getSharedPreferences("mysp", MODE_PRIVATE)
+
+Here we have to pass two arguments , the name of the data we want and the default value id we donot get the data
+sp.getString("name","Noname")
+
+When we try to add a data with a name which exist previously ,, then the previous data gets updated with thee new data
+
+
+To add elevation to any view ..
+We just need to add a empty blank background and add elevation to the view in the xml code …. Elevation will be applied
+android:elevation="40dp"
+android:padding="10dp"
+
+
+>>to add custom colour to shadow we use
+android:outlineSpotShadowColor="@color/red"
+
+To give a click effect on buttons 
+We have to design a animation resource file 
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <scale
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:toXScale="0.85"
+        android:toYScale="0.85"
+        android:duration="300"
+        android:pivotX="50%"
+        android:pivotY="50%" />
+    <alpha
+        android:fromAlpha="1.0"
+        android:toAlpha="0.7"
+        android:duration="300" />
+</set>
+
+And make its object in the main activity file of kotlin and start the animation like this 
+val anim =AnimationUtils.loadAnimation(this,R.drawable.effect)
+text.startAnimation(anim)
+
+The animation will be started soon
+
+To give the ripple effect to the Views
+TODO<not studied completely yet>
+
+
+
+
+
+
+
+
+MUSIC Handling in kotlin  (MyApplication4)
+
+>> create a basic UI of a music app having elements 
+FloatingActionButton(playpause,stop), ImageView, TextView(played,left)
+And SeekBar
+
+>> initializing the variables
+private lateinit var sound:MediaPlayer
+private lateinit var handler:Handler
+private lateinit var tplayed:TextView
+private lateinit var tleft:TextView
+private lateinit var runnable: Runnable
+private lateinit var seekbar: SeekBar
+
+
+
+>>MediaPlayer is used to create thee instance of music file which has to be played
+sound= MediaPlayer.create(this,R.raw.music)
+
+>> Handler I used to call a thread to update seekbar again and again
+handler=Handler(Looper.getMainLooper())
+
+
+>> Runnable is a thread which update the seekbar   
+Here we also update the text fields with time stamps
+runnable= Runnable {
+    tplayed.text="00:"+(sound.currentPosition/1000).toString()
+    tleft.text="00:"+((sound.duration-sound.currentPosition)/1000).toString()
+    seekbar.progress=sound.currentPosition
+    handler.postDelayed(runnable,15)
+}
+handler.postDelayed(runnable,15)
+
+
+>> to play sound  sound.start()  ,,,, to  pause sound  sound.pause()
+To stop sound sound.stop() //this method kills the sound object so we have to reinitialize it   
+>> sound.isPlaying() return true if music is being played  else false
+playpause.setOnClickListener({
+    if (sound.isPlaying()){
+        sound.pause()
+        playpause.setImageResource(R.drawable.img_play)
+    }
+    else{
+        playpause.setImageResource(R.drawable.img_pause)
+        
+        sound.start()
+    }
+})
+
+>> implementing seekbarChangeListner 
+Whenever somebody will move the seekbar then the music will be automatically adjusted by help of code inside OnProgressChanged
+
+seekbar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+    override fun onProgressChanged(skbar: SeekBar?, progress: Int, fromuser: Boolean) {
+    if (fromuser) sound.seekTo(progress)
+    }
+    override fun onStartTrackingTouch(skbar: SeekBar?) {
+    }
+    override fun onStopTrackingTouch(skbar: SeekBar?) {
+    }
+})
+
+
+>> implementing the stop button
+stop.setOnClickListener({
+    sound.stop()
+    playpause.setImageResource(R.drawable.img_play)
+    sound=MediaPlayer.create(this,R.raw.music)
+    handler.removeCallbacks(runnable)
+    seekbar.progress=0
+})
+
+
+     
+ 
+
+
+
+
+
+
+
+
+
+ Video management in android App
+>> Add a video view to the xml layout
+>> find the id    video = findViewById<VideoView>(R.id.videoView)
+>> Create a media controller to control play/pause/seek and set it on the videoview by help of   setAnchorView()
+>> Now we have to open the device explorer to find the desired video
+    Here startForResult is a object of ActivityResultLauncher class which is used to launch a activity and retrieve required data from it
+The lambda function is a callback After the launched activity returns the correct output 
+And a  variable “res” is created of type ActivityResult (res:ActivityResult -> …) which stores the returned data from the launched activity ,
+Then the data from thee returned result is stored in a intent by using (res.data)
+Then we get the data from the data Intent by using (data.data)
+The “let” function is used to run a block  of code if the data in non null  
+Here “uri” is a variable which stores the value of data.data for further use in the block of the code
+data.data.let {uri->…} 
+val intent = Intent(Intent.ACTION_GET_CONTENT)
+intent.type = "video/*" // Filter for video files
+intent.addCategory(Intent.CATEGORY_OPENABLE)
+startForResult.launch(intent)
+
+
+private val startForResult =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res: ActivityResult ->
+        if (res.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = res.data
+            data?.data?.let { uri ->
+                var inte=Intent(this@MainActivity,VideoActivity::class.java)
+                inte.putExtra("uri",uri)
+                startActivity(inte)
+            }
+        }
+    }
+
+
+ 
+>> Then the uri  is passed in an intent and then the other activity of our need
+>>To retrieve the uri in thee next activity we catch the passed intent and retrieve the data from the passed intent and set the uri to thee video view
+val inte:Uri?=intent.getParcelableExtra("uri")
+if (inte!=null){
+    video.setVideoURI(inte)
+}
+
+>> and  then we play thee video by calling 
+video.start()
+
+>> the video have many attributes  like …  we  can use them and many more similarly li audio
+video.start()
+video.resume()
+video.pause()
+video.seekTo()
+video.currentPosition
+video.duration
+video.isPlaying 
+etc. 
+
+
+
+
+
+
+
+
+
