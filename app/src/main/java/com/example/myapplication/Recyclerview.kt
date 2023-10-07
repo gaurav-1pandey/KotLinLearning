@@ -9,7 +9,7 @@ class Recyclerview : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recyclerview)
-        var sk="ninetyseven"
+        var sk="ninetysennk jbkbven"
 
         var rv=findViewById<RecyclerView>(R.id.myrv)
         rv.layoutManager=GridLayoutManager(this,3)
