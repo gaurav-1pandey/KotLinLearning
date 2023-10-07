@@ -10,6 +10,9 @@ class Recyclerview : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recyclerview)
 
+        var sk="ninetysennk jgauravbkbven"
+
+
         var rv=findViewById<RecyclerView>(R.id.myrv)
         rv.layoutManager=GridLayoutManager(this,3)
         val adapter=rvAdapter(listOf<String>("Gaurav","ankit","Rajnsh","Gauri","Gaurav","ankit","Rajnsh"
