@@ -18,7 +18,8 @@ Textviewname.text.clear()
 
 Starting a new activity
 
->>To start a new activity we have to use an object called Intent, and  this object can be stored in a variable of can be directlu passed into startActivity() function to start new activity.
+>>To start a new activity we have to use an object called Intent, and  this object can be stored in a variable 
+of can be directlu passed into startActivity() function to start new activity.
 
 startActivity(Intent(this/this@currentActivvityName, newactivityname::class.java)
 
@@ -40,8 +41,12 @@ import android.view.View.VISIBLE
 >>  to set the visibility we write
 viewname.visibility=VISIBLE/INVISIBLE
 Difference between Interface and Abstract Class
-Kotlin interfaces are similar to abstract classes. However, interfaces cannot store state whereas abstract classes can. Meaning, interface may have property but it needs to be abstract or has to provide accessor implementations. Whereas, it's not mandatory for property of an abstract class to be abstract.
-the choice between using an abstract class or an interface in Kotlin depends on your design requirements. If you need to provide some common implementation along with abstract methods, you might use an abstract class. If you want to define a contract without any implementation details, interfaces are more appropriate, especially when you need to support multiple inheritance of behavior.
+Kotlin interfaces are similar to abstract classes. However, interfaces cannot store state whereas abstract classes can.
+Meaning, interface may have property but it needs to be abstract or has to provide accessor implementations. Whereas, it's 
+not mandatory for property of an abstract class to be abstract.
+the choice between using an abstract class or an interface in Kotlin depends on your design requirements. If you need to provide
+some common implementation along with abstract methods, you might use an abstract class. If you want to define a contract without 
+any implementation details, interfaces are more appropriate, especially when you need to support multiple inheritance of behavior.
 
 Creating Log and reading them
 
