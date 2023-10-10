@@ -119,6 +119,11 @@ class MainActivity : AppCompatActivity() {
         })
 
 
+        var crud : Button = findViewById(R.id.crud)
+        crud.setOnClickListener({
+            startActivity(Intent(this,CRUD::class.java))
+        })
+
     }
 
     override fun onResume() {
@@ -146,6 +151,13 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         Log.i("mytag","MainActivity: on destroy")
     }
+
+
+
+
+
+
+
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res: ActivityResult ->
             if (res.resultCode == Activity.RESULT_OK) {
