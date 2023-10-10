@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 
@@ -48,15 +49,23 @@ class MainActivity : AppCompatActivity() {
         )
 
         lateinit var viewmodel:ViewModelDemo
-
+        var str=""
         viewmodel=ViewModelProvider(this).get(ViewModelDemo::class.java)
 
         viewmodel.cnt.observe(this,{
             text.text=it.toString()
+            str=it.toString()+"gaurav"
+
+
         })
+
+        Log.i("checkkbt",str)
+
         var btncount:Button=findViewById(R.id.btncount)
         btncount.setOnClickListener({
             viewmodel.updtccnt()
+            text.text=str+"ravi"
+            Log.i("checkkbt",str)
 //            text.text=viewmodel.count.toString()
 
         })
