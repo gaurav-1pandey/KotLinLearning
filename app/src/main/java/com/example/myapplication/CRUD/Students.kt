@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.CRUD
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 class Students (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id :Int =0,
+    var id :Int,
     @ColumnInfo(name = "name")
     var name : String,
     @ColumnInfo(name = "email")

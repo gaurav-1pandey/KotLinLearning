@@ -15,9 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
+import com.example.myapplication.CRUD.CRUD
 
 
 class MainActivity : AppCompatActivity() {
@@ -121,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
         var crud : Button = findViewById(R.id.crud)
         crud.setOnClickListener({
-            startActivity(Intent(this,CRUD::class.java))
+            startActivity(Intent(this, CRUD::class.java))
         })
 
     }
