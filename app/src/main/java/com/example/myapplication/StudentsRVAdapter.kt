@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.marginBottom
+import androidx.core.view.marginTop
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CRUD.Students
-
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 
 class StudentsRVAdapter(private val clickllistner:(Students) -> Unit) :RecyclerView.Adapter<StuVH>() {
@@ -33,13 +35,14 @@ class StudentsRVAdapter(private val clickllistner:(Students) -> Unit) :RecyclerV
     }
 
 }
-class StuVH(private val view : View):RecyclerView.ViewHolder(view){
+class StuVH(private var view : View):RecyclerView.ViewHolder(view){
     fun bind(students: Students,clicklistner:(Students)->Unit){
         val name = view.findViewById<TextView>(R.id.tvname)
         val email = view.findViewById<TextView>(R.id.tvemail)
         name.text=students.name
         email.text=students.email
-        view.setOnClickListener(){
+        view.setOnClickListener {
+
             clicklistner(students)
         }
 

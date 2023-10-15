@@ -19,6 +19,8 @@ class CRUD : AppCompatActivity() {
     private lateinit var rv:RecyclerView
     private lateinit var viewModel: StudentsViewModel
     lateinit var adapter:StudentsRVAdapter
+    private var flag:Boolean =false
+    private lateinit var selectedstu:Students
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,22 +32,28 @@ class CRUD : AppCompatActivity() {
         clear=findViewById(R.id.btnclear)
         rv=findViewById(R.id.rvstudent)
 
-
-
-
-
-
-
-
-
-
         val dao = StudentsDatabase.getInstance(application).studentDao()
         val faactory = StudentViewModelFactory(dao)
         viewModel = ViewModelProvider(this,faactory).get(StudentsViewModel::class.java)
 
 
+        clear.setOnClickListener(){
+            if (flag){
+                deletedata()}
+            else{
+                name.text.clear()
+                email.text.clear()}
+            flag=false
+        }
+
         save.setOnClickListener({
-            savedata()
+            if (flag){
+                updatedata()
+            }
+            else{
+                savedata()
+            }
+            flag=false
         })
 
         initrecyclerview()
@@ -62,18 +70,26 @@ class CRUD : AppCompatActivity() {
 
     private fun deletedata(){
         viewModel.deleteStudent(
-            Students(0,name.text.toString()
-            , email.text.toString())
+            Students(selectedstu.id,selectedstu.name
+                , selectedstu.email)
         )
         email.text.clear()
         name.text.clear()
+        flag=false
+        save.text="SAVE"
+        clear.text="CLEAR"
     }
 
     private fun updatedata(){
         viewModel.updateStudent(
-            Students(0,name.text.toString()
+            Students(selectedstu.id,name.text.toString()
             , email.text.toString())
         )
+        save.text="SAVE"
+        clear.text="CLEAR"
+        name.text.clear()
+        email.text.clear()
+        flag=false
     }
     fun initrecyclerview(){
         rv.layoutManager=LinearLayoutManager(this)
@@ -92,6 +108,11 @@ class CRUD : AppCompatActivity() {
     }
 
     fun itemclicked(stu:Students){
-        Toast.makeText(this,"the student is ${stu.name}",Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this,"the student is ${stu.name}",Toast.LENGTH_SHORT).show()
+        flag=true
+        selectedstu=stu
+        save.text="UPDATE"
+        clear.text="DELETE"
+
     }
 }

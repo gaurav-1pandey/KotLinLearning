@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity() {
         })
 
 
+        findViewById<Button>(R.id.next).setOnClickListener {
+            startActivity(Intent(this,NewButtons::class.java))
+        }
+
         var coroutine=findViewById<Button>(R.id.coroutine)
         coroutine.setOnClickListener(
             {

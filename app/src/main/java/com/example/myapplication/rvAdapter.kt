@@ -32,6 +32,4 @@ class myvh(var view: View):RecyclerView.ViewHolder(view){
     val tv1=view.findViewById<TextView>(R.id.tv1)
     val tv2=view.findViewById<TextView>(R.id.tv2)
 
-
-
 }
