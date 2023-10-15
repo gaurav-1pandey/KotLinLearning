@@ -1,22 +1,25 @@
 <!-- res/drawable/button_selector.xml -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="500"
+    android:exitFadeDuration="400">
     <item android:state_pressed="true">
-        <ripple android:color="?android:attr/colorControlHighlight">
+        <ripple android:color="#323530" android:effectColor="@color/teal_700"
+            >
+
             <item android:id="@android:id/background">
                 <shape android:shape="rectangle">
-                    <solid android:color="#DDDDDD" /> <!-- The background color when pressed -->
+                    <corners android:radius="20dp"/>
+                    <stroke android:width="3dp"/>
+                    <!-- The background color when pressed -->
                 </shape>
             </item>
-        </ripple>
-    </item>
-    <item android:state_focused="true">
+        </ripple></item>
+    <item android:id="@android:id/background">
         <shape android:shape="rectangle">
-            <solid android:color="#DDDDDD" /> <!-- The background color when focused -->
+            <corners android:radius="20dp"/>
+            <stroke android:width="3dp"/>
+            <solid android:color="#D10C0C" /> <!-- The background color when pressed -->
         </shape>
     </item>
-    <item>
-        <shape android:shape="rectangle">
-            <solid android:color="#FFFFFF" /> <!-- The default background color -->
-        </shape>
-    </item>
+
 </selector>

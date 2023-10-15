@@ -17,7 +17,6 @@ class WithoutCoroutine : AppCompatActivity() {
         var count=findViewById<Button>(R.id.count)
         var download=findViewById<Button>(R.id.download)
         download.setOnClickListener({
-            update()
             for (i in 1..20){
                 tvdownload.text="Downloading file $i"
                 Thread.sleep(300)
@@ -28,13 +27,6 @@ class WithoutCoroutine : AppCompatActivity() {
         count.setOnClickListener({
             tvcount.text=(++cnt).toString()
         })
-
-
-
-
-
-    }
-    fun update(){
 
     }
 }

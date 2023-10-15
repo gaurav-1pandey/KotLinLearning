@@ -26,5 +26,6 @@ class Recyclerview : AppCompatActivity() {
             "Gauri","Gauraav","ankit","Rajnish",
             "Gauri","Gauraav","ankit","Rajnish","Gauri"))
         rv.adapter=adapter
+
     }
 }

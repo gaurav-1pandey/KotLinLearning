@@ -16,7 +16,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
-
+import com.example.myapplication.CRUD.CRUD
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity() {
         })
 
 
+        findViewById<Button>(R.id.next).setOnClickListener {
+            startActivity(Intent(this,NewButtons::class.java))
+        }
+
         var coroutine=findViewById<Button>(R.id.coroutine)
         coroutine.setOnClickListener(
             {
@@ -48,15 +52,23 @@ class MainActivity : AppCompatActivity() {
         )
 
         lateinit var viewmodel:ViewModelDemo
-
+        var str=""
         viewmodel=ViewModelProvider(this).get(ViewModelDemo::class.java)
 
         viewmodel.cnt.observe(this,{
             text.text=it.toString()
+            str=it.toString()+"gaurav"
+
+
         })
+
+        Log.i("checkkbt",str)
+
         var btncount:Button=findViewById(R.id.btncount)
         btncount.setOnClickListener({
             viewmodel.updtccnt()
+            text.text=str+"ravi"
+            Log.i("checkkbt",str)
 //            text.text=viewmodel.count.toString()
 
         })
@@ -110,6 +122,11 @@ class MainActivity : AppCompatActivity() {
         })
 
 
+        var crud : Button = findViewById(R.id.crud)
+        crud.setOnClickListener({
+            startActivity(Intent(this, CRUD::class.java))
+        })
+
     }
 
     override fun onResume() {
@@ -137,6 +154,13 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         Log.i("mytag","MainActivity: on destroy")
     }
+
+
+
+
+
+
+
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res: ActivityResult ->
             if (res.resultCode == Activity.RESULT_OK) {
